@@ -127,12 +127,18 @@
 					{
 						audioContext.splitter = audioContext.createChannelSplitter(2);
 						audioContext.gainNode.connect(audioContext.splitter);
+					audioContext.source.connect(audioContext.leftAnalyser);
+					if(audioContext.source.channelCount > 1)
+					{
+						audioContext.splitter = audioContext.createChannelSplitter(2);
+						audioContext.source.connect(audioContext.splitter);
 						audioContext.splitter.connect(audioContext.leftAnalyser, 0, 0);
 						audioContext.splitter.connect(audioContext.rightAnalyser, 1, 0);
 					}
 					else
 					{
 						audioContext.gainNode.connect(audioContext.rightAnalyser);
+						audioContext.source.connect(audioContext.rightAnalyser);
 					}
 					document.getElementById("drop").style.opacity = "0";
 				}
